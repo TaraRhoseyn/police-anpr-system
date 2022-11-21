@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-11-21T21:07:24.542Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="tcqXgeYcW4S0xG9RmC9b" version="20.5.3" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2022-11-21T21:17:07.946Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="DPz3rlwVlQX621IBqTMC" version="20.5.3" type="github" pages="2">
   <diagram id="dg4eyf_hxNvLDcLa7-uG" name="use_cases">
-    <mxGraphModel dx="1022" dy="436" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
+    <mxGraphModel dx="1460" dy="623" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -21,11 +21,10 @@
         <mxCell id="i-XORGPP-G_SOjQB8cou-1" value="Operator" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="185" y="175.00000000000003" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="i-XORGPP-G_SOjQB8cou-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="i-XORGPP-G_SOjQB8cou-6" target="i-XORGPP-G_SOjQB8cou-9" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="i-XORGPP-G_SOjQB8cou-6" value="Camera" style="shape=mxgraph.signs.tech.camera_1;html=1;pointerEvents=1;fillColor=#000000;strokeColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;" parent="1" vertex="1">
-          <mxGeometry x="976" y="115" width="82" height="70.29" as="geometry" />
+        <mxCell id="i-XORGPP-G_SOjQB8cou-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" target="i-XORGPP-G_SOjQB8cou-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="976" y="150.20000000000005" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="i-XORGPP-G_SOjQB8cou-8" value="police-anpr-system" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="513" y="92" width="131" height="30" as="geometry" />
@@ -115,16 +114,14 @@
         <mxCell id="i-XORGPP-G_SOjQB8cou-52" value="CSV file -&amp;nbsp;&lt;br&gt;shift_log" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#000000;shape=mxgraph.azure.file_2;pointerEvents=1;" parent="1" vertex="1">
           <mxGeometry x="990" y="472" width="47.5" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="i-XORGPP-G_SOjQB8cou-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="i-XORGPP-G_SOjQB8cou-58" target="i-XORGPP-G_SOjQB8cou-9" edge="1">
+        <mxCell id="i-XORGPP-G_SOjQB8cou-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="i-XORGPP-G_SOjQB8cou-9" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="835" y="251" />
               <mxPoint x="835" y="185" />
             </Array>
+            <mxPoint x="990" y="251" as="sourcePoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="i-XORGPP-G_SOjQB8cou-58" value="Car" style="shape=mxgraph.signs.transportation.car_1;html=1;pointerEvents=1;fillColor=#000000;strokeColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;" parent="1" vertex="1">
-          <mxGeometry x="990" y="229" width="61" height="61" as="geometry" />
         </mxCell>
         <mxCell id="i-XORGPP-G_SOjQB8cou-65" value="Rejects invalid VRN" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="306" y="274" width="120" height="80" as="geometry" />
@@ -198,6 +195,12 @@
               <mxPoint x="342" y="883" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="aHnRzO58TS8COrWgOdmS-1" value="Camera" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="979" y="128" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aHnRzO58TS8COrWgOdmS-2" value="Car" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="994.75" y="229" width="30" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
