@@ -48,7 +48,7 @@ public class App {
     public static int rowCounter = 0;
     // init as a class attribute arraylist
     public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
-    public static void checkVRN(ArrayList<ArrayList<String>> carsInMemory) {
+    public static void checkVRN(String VRN) {
         // method to check logged VRN against PNC file
     }
     // method to add arraylist to 2d arraylist
@@ -105,6 +105,10 @@ public class App {
         return carsInMemory;
     }
     public static void printCarsInMemory(ArrayList<ArrayList<String>> carsInMemory) {
+        /*
+        Method that prints out the multidimensional ArrayList
+        that stores car information to the console
+        */
         System.out.println("CARS IN MEMORY:\n");
         Iterator itr = carsInMemory.iterator();
         while (itr.hasNext()) {
@@ -112,13 +116,15 @@ public class App {
         }
     }
     public static void editCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
-        // does this method need to return carsInMemory??
-        
-        // select which entry to edit:
+        /*
+        Method that updates all elements
+        of an inner list (selected by user) of multidimensional ArrayList
+        that stores the car information captured by camera
+        */
         System.out.println("You have chosen to edit a car entry.\n"+
         "Please chose which entry you wish to change:");
         Iterator itr = carsInMemory.iterator();
-        int i=0,j=1; // 'i' relfects true indice, 'j' is for the user's benefit so the first option isn't 0
+        int i=0,j=1; // 'i' relfects true index for iterating, 'j' is for the user's benefit so the first option isn't 0
         while (itr.hasNext()) {
             System.out.println("Number "+j+": "+itr.next());
             i++;
@@ -126,9 +132,8 @@ public class App {
         }
         Scanner scan = new Scanner(System.in);
         j = scan.nextInt();
-        j=j-1; // Resets user selection to true indice
-        scan.nextLine(); // Fixes scanner bug between nextInt and nextLine methods
-        System.out.println("The value of the 'j' variable: "+j); // Just checks indice is correct
+        j=j-1; // Sets user selected number to true index
+        scan.nextLine(); // Fixes Scanner bug between nextInt and nextLine methods
         System.out.println("Add new car VRN to daily log:");
         String VRN = scan.nextLine();
         System.out.println("Add today's date:");
@@ -140,7 +145,7 @@ public class App {
         carsInMemory.get(j).set(2, time);
         System.out.println(hashes);
         System.out.println("Edit successfully saved. Updated car log:\n");
-        printCarsInMemory(carsInMemory); // checks it's updated
+        printCarsInMemory(carsInMemory);
     }
     public static void addCarsToFile(ArrayList<ArrayList<String>> carsInMemory) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
