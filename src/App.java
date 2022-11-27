@@ -118,7 +118,11 @@ public class App {
                 file.append("\n");
             }
             file.close();
+        } catch (IOException e) {
+            System.out.println("\nA file error has occurred. Please see error message:\n");
+            System.out.println(e);
         } catch (Exception e) {
+            System.out.println("\nA general error (not related to the file handling) has occurred. Please see error message:\n");
             System.out.println(e);
         }
     }
