@@ -107,7 +107,6 @@ public class App {
         // Creates new file of all the logged cars during a daily operator shift
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
-            file.write("-- Daily shift log --\n");
             for(int i=0; i<carsInMemory.size(); i++) {  // iterates through row
                 for(int j=0; j<carsInMemory.get(i).size(); j++) {   // iterates through col
                     String colValue = carsInMemory.get(i).get(j);
