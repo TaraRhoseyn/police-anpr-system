@@ -47,9 +47,58 @@ public class App {
     public static String hashes = "------------------------------";
     public static int rowCounter = 0;
     // init as a class attribute arraylist
-    public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
+    public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String>>();
+    public static void viewCarDetails(ArrayList<ArrayList<String>> multiArrlist) {
+        /*
+        TRIED OVERLOADING METHOD
+        to include 1D arrlist but would throw exceptions
+        ??
+
+
+        Method that prints out multidimensional ArrayLists,
+        used for printing camera data held in memory
+        and data from PNC file
+        */
+        Iterator itr = multiArrlist.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+    }
     public static void checkVRN(String VRN) {
-        // method to check logged VRN against PNC file
+        /*
+        Method that takes the user-inputted VRN,
+        checks the VRN against the VRNs in the PNC file,
+        gives warning to user if match is found,
+        logs match to daily log file
+        */
+        try {
+            File PNCFile = new File("vehicles_of_interest.csv");
+            ArrayList<ArrayList<String>> PNC = new ArrayList<ArrayList<String>>();
+            Scanner scannedPNCFile = new Scanner(PNCFile);
+            while (scannedPNCFile.hasNextLine()) {
+                String line = scannedPNCFile.nextLine();
+                String values[] = line.split(",");
+                PNC.add(new ArrayList<String>(Arrays.asList(values)));
+            };
+            scannedPNCFile.close();
+            // viewCarDetails(PNC);// CHECKS FILE IMPORTED AS ARR.LIST OK
+            for(int i=0; i<PNC.size(); i++) { 
+                String VRNfromPNC = PNC.get(i).get(0);
+                if (VRNfromPNC.equalsIgnoreCase(VRN)) {
+                    System.out.println(hashes+"\nMATCH FOUND!\n"+hashes);
+                    System.out.println("The car you have logged matches a car in the PNC.");
+                    // ArrayList<String> matchedCar = new ArrayList<String>(Arrays.asList(PNC.get(i)));
+                    System.out.println("The vehicle of interest is:\n"+PNC.get(i));
+                    // overload method? TRIED TO OVERLOAD. ERRORED OUT
+                    // System.out.println(viewCarDetails(PNC.get(i)));
+                }
+                i++;
+                // TODO: Add record of match to log somewhere???
+            }
+        } catch (Exception e) {
+            System.out.println("\nA file error has occurred. Please see error message:\n");
+            System.out.println(e);
+        }
     }
     // method to add arraylist to 2d arraylist
     public static ArrayList<ArrayList<String>> addCarToMemory() {
@@ -61,6 +110,7 @@ public class App {
         String date = scanner.nextLine();
         System.out.println("Add the time:");
         String time = scanner.nextLine();
+        checkVRN(VRN);
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
         // checkVRN(carsInMemory);
         System.out.println(hashes+"\nCar added to memory."+
@@ -78,7 +128,7 @@ public class App {
             case 2:
                 System.out.println(hashes+"\nAll cars recorded today:\n");
                 // iterates through arraylist rows and prints each:
-                printCarsInMemory(carsInMemory);
+                viewCarDetails(carsInMemory);
                 System.out.println(hashes+"\nPlease select an option.\n"+
                     "1 -- Add another car\n"+
                     "2 -- Save all cars to a daily log file\n"+
@@ -103,17 +153,6 @@ public class App {
                 editCarInMemory(carsInMemory);
         }
         return carsInMemory;
-    }
-    public static void printCarsInMemory(ArrayList<ArrayList<String>> carsInMemory) {
-        /*
-        Method that prints out the multidimensional ArrayList
-        that stores car information to the console
-        */
-        System.out.println("CARS IN MEMORY:\n");
-        Iterator itr = carsInMemory.iterator();
-        while (itr.hasNext()) {
-            System.out.println(itr.next());
-        }
     }
     public static void editCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
         /*
@@ -140,19 +179,20 @@ public class App {
         String date = scan.nextLine();
         System.out.println("Add the time:");
         String time = scan.nextLine();
+        checkVRN(VRN);
         carsInMemory.get(j).set(0, VRN);
         carsInMemory.get(j).set(1, date);
         carsInMemory.get(j).set(2, time);
         System.out.println(hashes);
         System.out.println("Edit successfully saved. Updated car log:\n");
-        printCarsInMemory(carsInMemory);
+        viewCarDetails(carsInMemory);
     }
     public static void addCarsToFile(ArrayList<ArrayList<String>> carsInMemory) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
             file.append("---- DAILY LOG FILE ----\n");
-            file.append("- VRNs logged: -\n");
+            file.append("---- VRNs SCANNED: ----\n");
             for(int i=0; i<carsInMemory.size(); i++) {  // iterates through row
                 for(int j=0; j<carsInMemory.get(i).size(); j++) {   // iterates through col
                     String colValue = carsInMemory.get(i).get(j);
