@@ -46,9 +46,9 @@ public class App {
     // UTILITIES
     public static String hashes = "------------------------------";
     public static int rowCounter = 0;
+    public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
     public static void addCarToMemory() {
         // init arraylist
-        ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
         // user input of car details
         Scanner scanner = new Scanner(System.in);
         System.out.println("Add new car VRN to daily log:");
@@ -57,7 +57,6 @@ public class App {
         String date = scanner.nextLine();
         System.out.println("Add the time:");
         String time = scanner.nextLine();
-        // adds single array of inputted values to the arraylist
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
         System.out.println(carsInMemory);
     }
