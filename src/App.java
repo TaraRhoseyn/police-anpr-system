@@ -49,7 +49,7 @@ public class App {
     // init arraylist
     public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
     // method to add arraylist to 2d arraylist
-    public static ArrayList<ArrayList<String>> addCarToMemory() {
+    public static void addCarToMemory() {
         // user input of car details
         Scanner scanner = new Scanner(System.in);
         System.out.println("Add new car VRN to daily log:");
@@ -90,16 +90,15 @@ public class App {
                         addCarsToFile(carsInMemory);
                         break;
                     case 3:
-                        return carsInMemory;
+                        return;
                 } 
                 break;
             case 3:
                 addCarsToFile(carsInMemory);
             case 4:
-                return carsInMemory;
+                return;
         }
-        // return statement. must go at end. do i actually need this return value?
-        return carsInMemory;
+        return;
     }
     // TODO: distribute out logic
 
