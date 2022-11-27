@@ -55,7 +55,7 @@ public class App {
         System.out.println("Add new car VRN to daily log:");
         String VRN = scanner.nextLine();
         System.out.println("Add today's date:");
-        String date = scanner.nextLine();
+        final String date = scanner.nextLine();
         System.out.println("Add the time:");
         String time = scanner.nextLine();
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
