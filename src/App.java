@@ -48,6 +48,9 @@ public class App {
     public static int rowCounter = 0;
     // init as a class attribute arraylist
     public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
+    public static void checkVRN(ArrayList<ArrayList<String>> carsInMemory) {
+        // method to check logged VRN against PNC file
+    }
     // method to add arraylist to 2d arraylist
     public static ArrayList<ArrayList<String>> addCarToMemory() {
         // user input of car details
@@ -55,10 +58,11 @@ public class App {
         System.out.println("Add new car VRN to daily log:");
         String VRN = scanner.nextLine();
         System.out.println("Add today's date:");
-        final String date = scanner.nextLine();
+        String date = scanner.nextLine();
         System.out.println("Add the time:");
         String time = scanner.nextLine();
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
+        // checkVRN(carsInMemory);
         System.out.println(hashes+"\nCar added to memory."+
             "\nPlease select an option:\n"+
             "1 -- Add another car\n"+
@@ -74,10 +78,7 @@ public class App {
             case 2:
                 System.out.println(hashes+"\nAll cars recorded today:\n");
                 // iterates through arraylist rows and prints each:
-                Iterator itr = carsInMemory.iterator();
-                while (itr.hasNext()) {
-                    System.out.println(itr.next());
-                }
+                printCarsInMemory(carsInMemory);
                 System.out.println(hashes+"\nPlease select an option.\n"+
                     "1 -- Add another car\n"+
                     "2 -- Save all cars to a daily log file\n"+
@@ -103,9 +104,16 @@ public class App {
         }
         return carsInMemory;
     }
+    public static void printCarsInMemory(ArrayList<ArrayList<String>> carsInMemory) {
+        System.out.println("CARS IN MEMORY:\n");
+        Iterator itr = carsInMemory.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+    }
     public static void editCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
         // does this method need to return carsInMemory??
-
+        
         // select which entry to edit:
         System.out.println("You have chosen to edit a car entry.\n"+
         "Please chose which entry you wish to change:");
@@ -119,9 +127,20 @@ public class App {
         Scanner scan = new Scanner(System.in);
         j = scan.nextInt();
         j=j-1; // Resets user selection to true indice
+        scan.nextLine(); // Fixes scanner bug between nextInt and nextLine methods
         System.out.println("The value of the 'j' variable: "+j); // Just checks indice is correct
-        scan.close();
-        // TODO: grab indice num above and use it to update arraylist, or can i just use the 'i' var instead of 'n'???
+        System.out.println("Add new car VRN to daily log:");
+        String VRN = scan.nextLine();
+        System.out.println("Add today's date:");
+        String date = scan.nextLine();
+        System.out.println("Add the time:");
+        String time = scan.nextLine();
+        carsInMemory.get(j).set(0, VRN);
+        carsInMemory.get(j).set(1, date);
+        carsInMemory.get(j).set(2, time);
+        System.out.println(hashes);
+        System.out.println("Edit successfully saved. Updated car log:\n");
+        printCarsInMemory(carsInMemory); // checks it's updated
     }
     public static void addCarsToFile(ArrayList<ArrayList<String>> carsInMemory) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
