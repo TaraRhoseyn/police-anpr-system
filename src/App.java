@@ -107,13 +107,19 @@ public class App {
         try {
             // writes file:
             FileWriter file = new FileWriter("daily_shift_log.csv");
-            file.write("-- Daily shift log --");
+            file.write("-- Daily shift log --\n");
             // how to actually write:
             for(int i=0; i<carsInMemory.size(); i++) {  // iterates through row
+                String row = "";
                 for(int j=0; j<carsInMemory.get(i).size(); j++) {   // iterates through col
-                    System.out.println("carsInMemory array coming inside the addCarsToFile method:");
-                    System.out.println(carsInMemory.get(i).get(j));
+                    // System.out.println("carsInMemory array coming inside the addCarsToFile method:");
+                    // System.out.println(carsInMemory.get(i).get(j));
+                    String colValue = carsInMemory.get(i).get(j);
+                    row = String.format("%s,", colValue);
+                    // file.write(row.substring(0, row.length() - 1));
+                    file.append(row);
                 }
+                file.append("\n");
             }
             file.close();
         } catch (Exception e) {
