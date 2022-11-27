@@ -1,3 +1,4 @@
+// TODO: import only packages actually used
 import java.util.*;
 import java.io.*;
 
@@ -72,9 +73,9 @@ public class App {
             case 2:
                 System.out.println(hashes+"\nAll cars recorded today:\n");
                 // iterates through arraylist rows and prints each:
-                Iterator carsIter = carsInMemory.iterator();
-                while (carsIter.hasNext()) {
-                    System.out.println(carsIter.next());
+                Iterator itr = carsInMemory.iterator();
+                while (itr.hasNext()) {
+                    System.out.println(itr.next());
                 }
                 System.out.println(hashes+"\nPlease select an option.\n"+
                     "1 -- Add another car\n"+
@@ -107,10 +108,12 @@ public class App {
             // writes file:
             FileWriter file = new FileWriter("daily_shift_log.csv");
             file.write("-- Daily shift log --");
-            Iterator itr = carsInMemory.iterator();
-            while (itr.hasNext()) {
-                String row = (String) itr.next();
-                file.write(row);
+            // how to actually write:
+            for(int i=0; i<carsInMemory.size(); i++) {  // iterates through row
+                for(int j=0; j<carsInMemory.get(i).size(); j++) {   // iterates through col
+                    System.out.println("carsInMemory array coming inside the addCarsToFile method:");
+                    System.out.println(carsInMemory.get(i).get(j));
+                }
             }
             file.close();
         } catch (Exception e) {
