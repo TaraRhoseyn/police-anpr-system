@@ -46,10 +46,10 @@ public class App {
     // UTILITIES
     public static String hashes = "------------------------------";
     public static int rowCounter = 0;
-    // init arraylist
+    // init as a class attribute arraylist
     public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
     // method to add arraylist to 2d arraylist
-    public static void addCarToMemory() {
+    public static ArrayList<ArrayList<String>> addCarToMemory() {
         // user input of car details
         Scanner scanner = new Scanner(System.in);
         System.out.println("Add new car VRN to daily log:");
@@ -64,7 +64,8 @@ public class App {
             "1 -- Add another car\n"+
             "2 -- View all cars inputted\n"+
             "3 -- Save all cars to a daily log file\n"+
-            "4 -- Exit\n");
+            "4 -- Exit\n"+
+            "5 -- edit a car");
         int shiftOptions = scanner.nextInt();
         switch(shiftOptions) {
             case 1:
@@ -90,32 +91,55 @@ public class App {
                         addCarsToFile(carsInMemory);
                         break;
                     case 3:
-                        return;
+                        return carsInMemory;
                 } 
                 break;
             case 3:
                 addCarsToFile(carsInMemory);
             case 4:
-                return;
+                return carsInMemory;
+            case 5:
+                editCarInMemory(carsInMemory);
         }
-        return;
+        return carsInMemory;
     }
-    // TODO: distribute out logic
+    public static void editCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
+        // does this method need to return carsInMemory??
 
+        // select which entry to edit:
+        System.out.println("You have chosen to edit a car entry.\n"+
+        "Please chose which entry you wish to change:");
+        Iterator itr = carsInMemory.iterator();
+        int i=0,j=1; // 'i' relfects true indice, 'j' is for the user's benefit so the first option isn't 0
+        while (itr.hasNext()) {
+            System.out.println("Number "+j+": "+itr.next());
+            i++;
+            j++;
+        }
+        Scanner scan = new Scanner(System.in);
+        j = scan.nextInt();
+        j=j-1; // Resets user selection to true indice
+        System.out.println("The value of the 'j' variable: "+j); // Just checks indice is correct
+        scan.close();
+        // TODO: grab indice num above and use it to update arraylist, or can i just use the 'i' var instead of 'n'???
+    }
     public static void addCarsToFile(ArrayList<ArrayList<String>> carsInMemory) {
-        // Creates new file of all the logged cars during a daily operator shift
+        // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
+            file.append("---- DAILY LOG FILE ----\n");
+            file.append("- VRNs logged: -\n");
             for(int i=0; i<carsInMemory.size(); i++) {  // iterates through row
                 for(int j=0; j<carsInMemory.get(i).size(); j++) {   // iterates through col
                     String colValue = carsInMemory.get(i).get(j);
                     String row = String.format("%s,", colValue);
-                    // FIX: final comma appearing after third data
+                    // FIX: final comma appearing after third piece of data in row
                     file.append(row);
                 }
                 file.append("\n");
             }
             file.close();
+            // TODO: add functionality to log whether any PNC matches have been found during shift
         } catch (IOException e) {
             System.out.println("\nA file error has occurred. Please see error message:\n");
             System.out.println(e);
