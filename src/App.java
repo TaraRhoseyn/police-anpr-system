@@ -42,13 +42,13 @@ public class App {
         // private int operatorNum;
         // ArrayList: carsInMemory
     }
-
     // UTILITIES
     public static String hashes = "------------------------------";
     public static int rowCounter = 0;
+    // init arraylist
     public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String> >();
-    public static void addCarToMemory() {
-        // init arraylist
+    // method to add arraylist to 2d arraylist
+    public static ArrayList<ArrayList<String>> addCarToMemory() {
         // user input of car details
         Scanner scanner = new Scanner(System.in);
         System.out.println("Add new car VRN to daily log:");
@@ -59,6 +59,24 @@ public class App {
         String time = scanner.nextLine();
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
         System.out.println(carsInMemory);
+        System.out.println(hashes+"\nCar added to memory."+
+            "\nPlease select an option\n"+
+            "1 -- Add another car\n"+
+            "2 -- View all cars inputted\n"+
+            "3 -- Exit\n");
+        int shiftOptions = scanner.nextInt();
+        switch(shiftOptions) {
+            case 1:
+                addCarToMemory();
+                break;
+            case 2:
+                System.out.println(carsInMemory);
+                break;
+            case 3:
+                return carsInMemory;
+        }
+        // return statement. must go at end. do i actually need this return value?
+        return carsInMemory;
     }
     // TODO: distribute out logic
     public static void main(String[] args) throws Exception {
@@ -71,13 +89,6 @@ public class App {
         System.out.println("Begin shift? Please type and enter for a response.\n1 -- YES\n2 -- NO"+"\n"+hashes);
         int shift = scanner.nextInt();
         if (shift == 1) {
-            addCarToMemory();   
-        } else {
-            System.out.println("Shift not begun. Application terminated.");
-        }
-        System.out.println("Add another car?\n1 -- YES\n2-- NO");
-        int addAnother = scanner.nextInt();
-        if (addAnother == 1) {
             addCarToMemory();   
         } else {
             System.out.println("Shift not begun. Application terminated.");
