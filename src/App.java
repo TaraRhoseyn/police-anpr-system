@@ -58,21 +58,27 @@ public class App {
         System.out.println("Add the time:");
         String time = scanner.nextLine();
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
-        System.out.println(carsInMemory);
         System.out.println(hashes+"\nCar added to memory."+
-            "\nPlease select an option\n"+
+            "\nPlease select an option:\n"+
             "1 -- Add another car\n"+
             "2 -- View all cars inputted\n"+
-            "3 -- Exit\n");
+            "3 -- Save all cars to a daily log file\n"+
+            "4 -- Exit\n");
         int shiftOptions = scanner.nextInt();
         switch(shiftOptions) {
             case 1:
                 addCarToMemory();
                 break;
             case 2:
-                System.out.println(carsInMemory);
+                System.out.println(hashes+"\nAll cars recorded today:\n");
+                // iterates through arraylist rows and prints each:
+                Iterator carsIter = carsInMemory.iterator();
+                while (carsIter.hasNext()) {
+                    System.out.println(carsIter.next());
+                }
+                
                 break;
-            case 3:
+            case 4:
                 return carsInMemory;
         }
         // return statement. must go at end. do i actually need this return value?
@@ -86,7 +92,7 @@ public class App {
         // init scanner:
         Scanner scanner = new Scanner(System.in);
         // start shift
-        System.out.println("Begin shift? Please type and enter for a response.\n1 -- YES\n2 -- NO"+"\n"+hashes);
+        System.out.println("Begin shift? Please type and enter for a response.\n1 -- Yes\n2 -- No"+"\n"+hashes);
         int shift = scanner.nextInt();
         if (shift == 1) {
             addCarToMemory();   
