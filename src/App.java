@@ -76,8 +76,24 @@ public class App {
                 while (carsIter.hasNext()) {
                     System.out.println(carsIter.next());
                 }
-                
+                System.out.println(hashes+"\nPlease select an option.\n"+
+                    "1 -- Add another car\n"+
+                    "2 -- Save all cars to a daily log file\n"+
+                    "3 -- Exit");
+                int viewOptions = scanner.nextInt();
+                switch(viewOptions) {
+                    case 1:
+                        addCarToMemory();
+                        break;
+                    case 2:
+                        addCarsToFile(carsInMemory);
+                        break;
+                    case 3:
+                        return carsInMemory;
+                } 
                 break;
+            case 3:
+                addCarsToFile(carsInMemory);
             case 4:
                 return carsInMemory;
         }
@@ -85,6 +101,23 @@ public class App {
         return carsInMemory;
     }
     // TODO: distribute out logic
+
+    public static void addCarsToFile(ArrayList<ArrayList<String>> carsInMemory) {
+        try {
+            // writes file:
+            FileWriter file = new FileWriter("daily_shift_log.csv");
+            file.write("-- Daily shift log --");
+            Iterator itr = carsInMemory.iterator();
+            while (itr.hasNext()) {
+                String row = (String) itr.next();
+                file.write(row);
+            }
+            file.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         // general info:
         System.out.println("\nNORTH YORKSHIRE POLICE: ANPR SYSTEM");
