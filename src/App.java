@@ -119,7 +119,8 @@ public class App {
             "2 -- View all cars inputted\n"+
             "3 -- Save all cars to a daily log file\n"+
             "4 -- Exit\n"+
-            "5 -- edit a car");
+            "5 -- Amend a car\n"+
+            "6 -- Remove a car");
         int shiftOptions = scanner.nextInt();
         switch(shiftOptions) {
             case 1:
@@ -139,22 +140,45 @@ public class App {
                         addCarToMemory();
                         break;
                     case 2:
-                        addCarsToFile(carsInMemory);
+                        addCarsToDailyLogFile(carsInMemory);
                         break;
                     case 3:
                         return carsInMemory;
                 } 
                 break;
             case 3:
-                addCarsToFile(carsInMemory);
+                addCarsToDailyLogFile(carsInMemory);
+                break;
             case 4:
                 return carsInMemory;
             case 5:
-                editCarInMemory(carsInMemory);
+                amendCarInMemory(carsInMemory);
+                break;
+            case 6:
+                removeCar(carsInMemory);
+                break;
         }
         return carsInMemory;
     }
-    public static void editCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
+    public static void removeCar(ArrayList<ArrayList<String>> arrlist) {
+        System.out.println("You have chosen to remove a car entry.\n"+
+        "Please chose which entry you wish to remove:");
+        Iterator itr = arrlist.iterator();
+        int i=0,j=1; // 'i' relfects true index for iterating, 'j' is for the user's benefit so the first option isn't 0
+        while (itr.hasNext()) {
+            System.out.println("Number "+j+": "+itr.next());
+            i++;
+            j++;
+        }
+        Scanner scan = new Scanner(System.in);
+        j = scan.nextInt();
+        j=j-1;
+        arrlist.remove(j);
+        System.out.println(hashes);
+        System.out.println("Car successfully removed. Updated car log:\n");
+        viewCarDetails(arrlist);
+    }
+    public static void amendCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
         /*
         Method that updates all elements
         of an inner list (selected by user) of multidimensional ArrayList
@@ -187,7 +211,7 @@ public class App {
         System.out.println("Edit successfully saved. Updated car log:\n");
         viewCarDetails(carsInMemory);
     }
-    public static void addCarsToFile(ArrayList<ArrayList<String>> carsInMemory) {
+    public static void addCarsToDailyLogFile(ArrayList<ArrayList<String>> carsInMemory) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
