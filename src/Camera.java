@@ -2,14 +2,14 @@
 import java.util.*;
 import java.io.*;
 
-public class Shift {
+class Camera {
     // UTILITIES
-    public static String hashes = "------------------------------";
-    public final int count = 0;
+    String hashes = "------------------------------";
+    final int count = 0;
     // class attributes
-    public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String>>();
     // start menu:
-    public void displayStartMenu() {
+    void displayStartMenu() {
         Scanner scan = new Scanner(System.in);
         System.out.println(hashes+"North Yorkshire ANPR System"+hashes);
         System.out.println("\nPlease select an option:"+
@@ -24,17 +24,17 @@ public class Shift {
         int selector = scan.nextInt();
         switch(selector) {
             case 1:
-                addCarToMemory();
+                addCar();
                 displayStartMenu();
                 break;
             case 2:
-                viewCarDetails(carsInMemory);
+                viewCar(carsInMemory);
                 displayStartMenu();
                 break;
             
         }
     }
-    public ArrayList<ArrayList<String>> addCarToMemory() {
+    ArrayList<ArrayList<String>> addCar() {
         // user input of car details
         Scanner scanner = new Scanner(System.in);
         System.out.println("Add new car VRN to daily log:");
@@ -44,7 +44,7 @@ public class Shift {
         System.out.println("Add the time:");
         String time = scanner.nextLine();
         // checks VRN against PNC:
-        checkVRN(VRN);
+        checkVRNwithPNC(VRN);
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
         System.out.println(hashes+"\nCar added.\nPlease select an option.\n1 - Return to Menu\n2 - Exit (save to shift log)");
         int selector = scanner.nextInt();
@@ -58,7 +58,7 @@ public class Shift {
         }
         return carsInMemory;
     }
-    public static void viewCarDetails(ArrayList<ArrayList<String>> arrlist) {
+    void viewCar(ArrayList<ArrayList<String>> arrlist) {
         /*
         Method that prints out multidimensional ArrayLists,
         used for printing camera data held in memory
@@ -69,7 +69,7 @@ public class Shift {
             System.out.println(itr.next());
         }
     }
-    public static void checkVRN(String VRN) {
+    void checkVRNwithPNC(String VRN) {
         /*
         Method that takes the user-inputted VRN,
         checks the VRN against the VRNs in the PNC file,
@@ -105,7 +105,7 @@ public class Shift {
             System.out.println(e);
         }
     }
-    public static void removeCar(ArrayList<ArrayList<String>> arrlist) {
+    void removeCar(ArrayList<ArrayList<String>> arrlist) {
         System.out.println("You have chosen to remove a car entry.\n"+
         "Please chose which entry you wish to remove:");
         Iterator itr = arrlist.iterator();
@@ -121,9 +121,9 @@ public class Shift {
         arrlist.remove(j);
         System.out.println(hashes);
         System.out.println("Car successfully removed. Updated car log:\n");
-        viewCarDetails(arrlist);
+        viewCar(arrlist);
     }
-    public static void amendCarInMemory(ArrayList<ArrayList<String>> carsInMemory) {
+    ArrayList<ArrayList<String>> amendCar(ArrayList<ArrayList<String>> carsInMemory) {
         /*
         Method that updates all elements
         of an inner list (selected by user) of multidimensional ArrayList
@@ -148,15 +148,16 @@ public class Shift {
         String date = scan.nextLine();
         System.out.println("Add the time:");
         String time = scan.nextLine();
-        checkVRN(VRN);
+        checkVRNwithPNC(VRN);
         carsInMemory.get(j).set(0, VRN);
         carsInMemory.get(j).set(1, date);
         carsInMemory.get(j).set(2, time);
         System.out.println(hashes);
         System.out.println("Edit successfully saved. Updated car log:\n");
-        viewCarDetails(carsInMemory);
+        viewCar(carsInMemory);
+        return carsInMemory;
     }
-    public static void saveCarsToLogFile(ArrayList<ArrayList<String>> carsInMemory) {
+    void saveCarsToLogFile(ArrayList<ArrayList<String>> carsInMemory) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
