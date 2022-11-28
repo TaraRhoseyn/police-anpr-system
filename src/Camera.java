@@ -13,14 +13,15 @@ class Camera {
         Scanner scan = new Scanner(System.in);
         System.out.println(hashes+"North Yorkshire ANPR System"+hashes);
         System.out.println("\nPlease select an option:"+
-            "\n 1 - Add a vehicle"+
-            "\n 2 - View all vehicles"+
-            "\n 3 - Amend a vehicle"+
-            "\n 4 - Remove a vehicle"+
-            "\n 5 - End shift (save to log file)"+
+            "\n 1 - Add a vehicle"+ // logic done
+            "\n 2 - View all vehicles"+ // logic done
+            "\n 3 - Amend a vehicle"+ // logic done
+            "\n 4 - Remove a vehicle"+ // logic done
+            "\n 5 - End shift (save to log file)"+ // logic done
             "\n 6 - (Admin) View PNC file"+
-            "\n 7 - (Admin)Amend a vehicle in PNC file"+
-            "\n 8 - (Admin)Remove a vehicle in PNC file");
+            "\n 7 - (Admin) Amend a vehicle in PNC file"+
+            "\n 8 - (Admin) Remove a vehicle in PNC file"+
+            "\n 9 - (Admin) View daily shift log");
         int selector = scan.nextInt();
         switch(selector) {
             case 1:
@@ -31,7 +32,18 @@ class Camera {
                 viewCar(carsInMemory);
                 displayStartMenu();
                 break;
-            
+            case 3:
+                amendCar(carsInMemory);
+                displayStartMenu();
+                break;
+            case 4:
+                removeCar(carsInMemory);
+                displayStartMenu();
+                break;
+            case 5:
+                saveCarsToLogFile(carsInMemory);
+                displayStartMenu();
+                break;
         }
     }
     ArrayList<ArrayList<String>> addCar() {
