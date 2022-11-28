@@ -77,24 +77,24 @@ public class App {
             Scanner scannedPNCFile = new Scanner(PNCFile);
             while (scannedPNCFile.hasNextLine()) {
                 String line = scannedPNCFile.nextLine();
-                String values[] = line.split(",");
+                String[] values = line.split(",");
                 PNC.add(new ArrayList<String>(Arrays.asList(values)));
             };
             scannedPNCFile.close();
-            // viewCarDetails(PNC);// CHECKS FILE IMPORTED AS ARR.LIST OK
             for(int i=0; i<PNC.size(); i++) { 
                 String VRNfromPNC = PNC.get(i).get(0);
                 if (VRNfromPNC.equalsIgnoreCase(VRN)) {
                     System.out.println(hashes+"\nMATCH FOUND!\n"+hashes);
                     System.out.println("The car you have logged matches a car in the PNC.");
-                    // ArrayList<String> matchedCar = new ArrayList<String>(Arrays.asList(PNC.get(i)));
-                    System.out.println("The vehicle of interest is:\n"+PNC.get(i));
-                    // overload method? TRIED TO OVERLOAD. ERRORED OUT
-                    // System.out.println(viewCarDetails(PNC.get(i)));
+                    System.out.println("The vehicle of interest is:\n");
+                    System.out.println(String.join(", ", PNC.get(i)));
                 }
-                i++;
-                // TODO: Add record of match to log somewhere???
             }
+            /*
+            TODO: problem:: if i send this matched info
+            to log file now, it could be incorrect if user
+            then edits a VRN in memory
+             */
         } catch (Exception e) {
             System.out.println("\nA file error has occurred. Please see error message:\n");
             System.out.println(e);
