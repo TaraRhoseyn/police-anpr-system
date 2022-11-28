@@ -2,24 +2,69 @@
 import java.util.*;
 import java.io.*;
 
-public class first_draft {
+public class Shift {
     // UTILITIES
     public static String hashes = "------------------------------";
     public final int count = 0;
-    // init as a class attribute arraylist
+    // class attributes
     public static ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String>>();
-    public static void viewCarDetails(ArrayList<ArrayList<String>> multiArrlist) {
+    // start menu:
+    public void displayStartMenu() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(hashes+"North Yorkshire ANPR System"+hashes);
+        System.out.println("\nPlease select an option:"+
+            "\n 1 - Add a vehicle"+
+            "\n 2 - View all vehicles"+
+            "\n 3 - Amend a vehicle"+
+            "\n 4 - Remove a vehicle"+
+            "\n 5 - End shift (save to log file)"+
+            "\n 6 - (Admin) View PNC file"+
+            "\n 7 - (Admin)Amend a vehicle in PNC file"+
+            "\n 8 - (Admin)Remove a vehicle in PNC file");
+        int selector = scan.nextInt();
+        switch(selector) {
+            case 1:
+                addCarToMemory();
+                displayStartMenu();
+                break;
+            case 2:
+                viewCarDetails(carsInMemory);
+                displayStartMenu();
+                break;
+            
+        }
+    }
+    public ArrayList<ArrayList<String>> addCarToMemory() {
+        // user input of car details
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Add new car VRN to daily log:");
+        String VRN = scanner.nextLine();
+        System.out.println("Add today's date:");
+        String date = scanner.nextLine();
+        System.out.println("Add the time:");
+        String time = scanner.nextLine();
+        // checks VRN against PNC:
+        checkVRN(VRN);
+        carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
+        System.out.println(hashes+"\nCar added.\nPlease select an option.\n1 - Return to Menu\n2 - Exit (save to shift log)");
+        int selector = scanner.nextInt();
+        switch(selector) {
+            case 1:
+                displayStartMenu();
+                break;
+            case 2:
+                saveCarsToLogFile(carsInMemory);
+                break;
+        }
+        return carsInMemory;
+    }
+    public static void viewCarDetails(ArrayList<ArrayList<String>> arrlist) {
         /*
-        TRIED OVERLOADING METHOD
-        to include 1D arrlist but would throw exceptions
-        ??
-
-
         Method that prints out multidimensional ArrayLists,
         used for printing camera data held in memory
         and data from PNC file
         */
-        Iterator itr = multiArrlist.iterator();
+        Iterator itr = arrlist.iterator();
         while (itr.hasNext()) {
             System.out.println(itr.next());
         }
@@ -59,66 +104,6 @@ public class first_draft {
             System.out.println("\nA file error has occurred. Please see error message:\n");
             System.out.println(e);
         }
-    }
-    // method to add arraylist to 2d arraylist
-    public static ArrayList<ArrayList<String>> addCarToMemory() {
-        // user input of car details
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Add new car VRN to daily log:");
-        String VRN = scanner.nextLine();
-        System.out.println("Add today's date:");
-        String date = scanner.nextLine();
-        System.out.println("Add the time:");
-        String time = scanner.nextLine();
-        checkVRN(VRN);
-        carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
-        // checkVRN(carsInMemory);
-        System.out.println(hashes+"\nCar added to memory."+
-            "\nPlease select an option:\n"+
-            "1 -- Add another car\n"+
-            "2 -- View all cars inputted\n"+
-            "3 -- Save all cars to a daily log file\n"+
-            "4 -- Exit\n"+
-            "5 -- Amend a car\n"+
-            "6 -- Remove a car");
-        int shiftOptions = scanner.nextInt();
-        switch(shiftOptions) {
-            case 1:
-                addCarToMemory();
-                break;
-            case 2:
-                System.out.println(hashes+"\nAll cars recorded today:\n");
-                // iterates through arraylist rows and prints each:
-                viewCarDetails(carsInMemory);
-                System.out.println(hashes+"\nPlease select an option.\n"+
-                    "1 -- Add another car\n"+
-                    "2 -- Save all cars to a daily log file\n"+
-                    "3 -- Exit");
-                int viewOptions = scanner.nextInt();
-                switch(viewOptions) {
-                    case 1:
-                        addCarToMemory();
-                        break;
-                    case 2:
-                        addCarsToDailyLogFile(carsInMemory);
-                        break;
-                    case 3:
-                        return carsInMemory;
-                } 
-                break;
-            case 3:
-                addCarsToDailyLogFile(carsInMemory);
-                break;
-            case 4:
-                return carsInMemory;
-            case 5:
-                amendCarInMemory(carsInMemory);
-                break;
-            case 6:
-                removeCar(carsInMemory);
-                break;
-        }
-        return carsInMemory;
     }
     public static void removeCar(ArrayList<ArrayList<String>> arrlist) {
         System.out.println("You have chosen to remove a car entry.\n"+
@@ -171,7 +156,7 @@ public class first_draft {
         System.out.println("Edit successfully saved. Updated car log:\n");
         viewCarDetails(carsInMemory);
     }
-    public static void addCarsToDailyLogFile(ArrayList<ArrayList<String>> carsInMemory) {
+    public static void saveCarsToLogFile(ArrayList<ArrayList<String>> carsInMemory) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
@@ -194,22 +179,6 @@ public class first_draft {
         } catch (Exception e) {
             System.out.println("\nA general error (not related to the file handling) has occurred. Please see error message:\n");
             System.out.println(e);
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        // general info:
-        System.out.println("\nNORTH YORKSHIRE POLICE: ANPR SYSTEM");
-        System.out.println(hashes+"\n");
-        // init scanner:
-        Scanner scanner = new Scanner(System.in);
-        // start shift
-        System.out.println("Begin shift? Please type and enter for a response.\n1 -- Yes\n2 -- No"+"\n"+hashes);
-        int shift = scanner.nextInt();
-        if (shift == 1) {
-            addCarToMemory();   
-        } else {
-            System.out.println("Shift not begun. Application terminated.");
         }
     }
 }
