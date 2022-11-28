@@ -71,15 +71,9 @@ class Camera {
         return carsInMemory;
     }
     void viewCar(ArrayList<ArrayList<String>> arrlist) {
-        /*
-        Method that prints out multidimensional ArrayLists,
-        used for printing camera data held in memory
-        and data from PNC file
-        */
-        Iterator itr = arrlist.iterator();
-        while (itr.hasNext()) {
-            System.out.println(itr.next());
-        }
+        /* Method that uses a lambda expression to return and print a new String from
+        a multidimensional ArrayList */
+        arrlist.forEach((c)->{System.out.println(String.join(", ",c));});
     }
     void checkVRNwithPNC(String VRN) {
         /*
