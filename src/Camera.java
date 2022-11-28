@@ -72,7 +72,7 @@ class Camera {
     }
     void viewCar(ArrayList<ArrayList<String>> arrlist) {
         /* Method that uses a lambda expression to return and print a new String from
-        a multidimensional ArrayList */
+        each inner list of a multidimensional ArrayList */
         arrlist.forEach((c)->{System.out.println(String.join(", ",c));});
     }
     void checkVRNwithPNC(String VRN) {
