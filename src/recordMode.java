@@ -9,7 +9,7 @@ class recordMode {
     // class attributes
     ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String>>();
     // start menu:
-    void displayStartMenu() {
+    void displayStartMenu() throws FileNotFoundException {
         Scanner scan = new Scanner(System.in);
         System.out.println(hashes+"North Yorkshire ANPR System"+hashes);
         System.out.println("\nPlease select an option:"+
@@ -44,6 +44,9 @@ class recordMode {
                 saveCarsToLogFile(carsInMemory);
                 displayStartMenu();
                 break;
+            case 6:
+                adminMode adminMode = new adminMode();
+                adminMode.viewPNCfile();
         }
     }
     ArrayList<ArrayList<String>> addCar() {
@@ -60,7 +63,7 @@ class recordMode {
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
         System.out.println(hashes+"\nCar added.\nPlease select an option.\n1 - Return to Menu\n2 - Exit (save to shift log)");
         int selector = scanner.nextInt();
-        switch(selector) {
+        switch(selector){
             case 1:
                 displayStartMenu();
                 break;
@@ -86,15 +89,15 @@ class recordMode {
             File PNCFile = new File("vehicles_of_interest.csv");
             ArrayList<ArrayList<String>> PNC = new ArrayList<ArrayList<String>>();
             Scanner scannedPNCFile = new Scanner(PNCFile);
-            while (scannedPNCFile.hasNextLine()) {
+            while(scannedPNCFile.hasNextLine()){
                 String line = scannedPNCFile.nextLine();
                 String[] values = line.split(",");
                 PNC.add(new ArrayList<String>(Arrays.asList(values)));
             };
             scannedPNCFile.close();
-            for(int i=0; i<PNC.size(); i++) { 
+            for(int i=0; i<PNC.size(); i++){ 
                 String VRNfromPNC = PNC.get(i).get(0);
-                if (VRNfromPNC.equalsIgnoreCase(VRN)) {
+                if(VRNfromPNC.equalsIgnoreCase(VRN)){
                     System.out.println(hashes+"\nMATCH FOUND!\n"+hashes);
                     System.out.println("The car you have logged matches a car in the PNC.");
                     System.out.println("The vehicle of interest is:\n");
@@ -105,7 +108,7 @@ class recordMode {
             TODO:
             Add functionality of adding matches to daily_shift_log... so only trigger method at end of shift?
              */
-        } catch (Exception e) {
+        } catch(Exception e){
             System.out.println("\nA file error has occurred. Please see error message:\n");
             System.out.println(e);
         }
