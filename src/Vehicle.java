@@ -33,16 +33,16 @@ public class Vehicle {
         /* Removes any whitespaces, and only sets the variable
         to the class attribute if it's not empty and between 3-12 characters.
         */
+        String message = "";
         str.replaceAll(" ", "");
-        if (str.isEmpty()) {
-            System.out.println("Please submit a Vehicle Registration Number.");
-            // how to get user back to input screen?
-        } else if ((str.length() >= 12) || (str.length() <= 3)) {
-            System.out.println("The submitted Vehicle Registration Number must be between 3 and 12 characters long.");
+        message = (str.isEmpty()) ? "Please submit a Vehicle Registration Number." : "";
+        if ((str.length() >= 12) || (str.length() <= 3)) {
+            message = "The submitted Vehicle Registration Number must be between 3 and 12 characters long.";
         } else {
             this.VRN = str;
+            message = "Vehicle Registration Number successfully logged.";
         }
-        return str;
+        return message;
     }
     public void setDate(String str) {
         date = str;
