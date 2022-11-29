@@ -2,7 +2,7 @@
 import java.util.*;
 import java.io.*;
 
-class recordMode {
+class Record {
     // UTILITIES
     String hashes = "------------------------------";
     final int count = 0;
@@ -11,17 +11,19 @@ class recordMode {
     // start menu:
     void displayStartMenu() throws FileNotFoundException {
         Scanner scan = new Scanner(System.in);
+        Admin admin = new Admin();
         System.out.println(hashes+"North Yorkshire ANPR System"+hashes);
         System.out.println("\nPlease select an option:"+
             "\n 1 - Add a vehicle"+ // logic done
             "\n 2 - View all vehicles"+ // logic done
             "\n 3 - Amend a vehicle"+ // logic done
             "\n 4 - Remove a vehicle"+ // logic done
-            "\n 5 - End shift (save to log file)"+ // logic done
-            "\n 6 - (Admin) View PNC file"+
-            "\n 7 - (Admin) Amend a vehicle in PNC file"+
+            "\n 5 - End shift (save to log file)"+ 
+            "\n 6 - (Admin) View PNC file"+ // logic done
+            "\n 7 - (Admin) Amend a vehicle in PNC file"+ 
             "\n 8 - (Admin) Remove a vehicle in PNC file"+
-            "\n 9 - (Admin) View daily shift log");
+            "\n 9 - (Admin) View daily shift log"+
+            "\n10 - Exit application");
         int selector = scan.nextInt();
         switch(selector) {
             case 1:
@@ -45,9 +47,12 @@ class recordMode {
                 displayStartMenu();
                 break;
             case 6:
-                adminMode adminMode = new adminMode();
-                ArrayList<ArrayList<String>> readFile = adminMode.readPNCfile();
-                adminMode.viewPNCfile(readFile);
+                ArrayList<ArrayList<String>> readFile = admin.readPNCfile();
+                admin.viewPNCfile(readFile);
+                displayStartMenu();
+            case 8:
+                admin.removePNCvehicle();
+                displayStartMenu();
         }
     }
     ArrayList<ArrayList<String>> addCar() {
@@ -91,8 +96,8 @@ class recordMode {
         gives warning to user if match is found
         */
         try {
-            adminMode adminMode = new adminMode();
-            ArrayList<ArrayList<String>> readFile = adminMode.readPNCfile();
+            Admin admin = new Admin();
+            ArrayList<ArrayList<String>> readFile = admin.readPNCfile();
             for(int i=0; i<readFile.size(); i++){ 
                 String VRNfromPNC = readFile.get(i).get(0);
                 if(VRNfromPNC.equalsIgnoreCase(VRN)){
