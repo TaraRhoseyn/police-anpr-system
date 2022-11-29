@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
+
 public class Vehicle {
     public String VRN;
     public String date;
@@ -14,7 +19,7 @@ public class Vehicle {
         as read by camera
         */
         this.VRN = setVRN(VRN);
-        this.date = date;
+        this.date = setDate();
         this.time = time;
     }
     public void Vehicle(String VRN, String make, String model, int yearOfManufacture, String colour, String information) {
@@ -44,8 +49,15 @@ public class Vehicle {
         }
         return message;
     }
-    public void setDate(String str) {
-        date = str;
+    public String setDate() {
+        // TODO: check format is same as in assignment
+        /*
+         * https://howtodoinjava.com/java/date-time/localdate-format-example/
+         */
+        LocalDate today = LocalDate.now();
+        String formattedDate = today.format(DateTimeFormatter
+            .ofLocalizedDate(FormatStyle.SHORT));
+        return formattedDate;
     }
     public void setTime(String str) {
         time = str;
