@@ -46,7 +46,8 @@ class recordMode {
                 break;
             case 6:
                 adminMode adminMode = new adminMode();
-                adminMode.viewPNCfile();
+                ArrayList<ArrayList<String>> readFile = adminMode.readPNCfile();
+                adminMode.viewPNCfile(readFile);
         }
     }
     ArrayList<ArrayList<String>> addCar() {
@@ -65,7 +66,12 @@ class recordMode {
         int selector = scanner.nextInt();
         switch(selector){
             case 1:
-                displayStartMenu();
+                try {
+                    displayStartMenu();
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 break;
             case 2:
                 saveCarsToLogFile(carsInMemory);
@@ -85,23 +91,15 @@ class recordMode {
         gives warning to user if match is found
         */
         try {
-            // maybe worth creating a seperate function for reading the file since I will need it for admin functions too??
-            File PNCFile = new File("vehicles_of_interest.csv");
-            ArrayList<ArrayList<String>> PNC = new ArrayList<ArrayList<String>>();
-            Scanner scannedPNCFile = new Scanner(PNCFile);
-            while(scannedPNCFile.hasNextLine()){
-                String line = scannedPNCFile.nextLine();
-                String[] values = line.split(",");
-                PNC.add(new ArrayList<String>(Arrays.asList(values)));
-            };
-            scannedPNCFile.close();
-            for(int i=0; i<PNC.size(); i++){ 
-                String VRNfromPNC = PNC.get(i).get(0);
+            adminMode adminMode = new adminMode();
+            ArrayList<ArrayList<String>> readFile = adminMode.readPNCfile();
+            for(int i=0; i<readFile.size(); i++){ 
+                String VRNfromPNC = readFile.get(i).get(0);
                 if(VRNfromPNC.equalsIgnoreCase(VRN)){
                     System.out.println(hashes+"\nMATCH FOUND!\n"+hashes);
                     System.out.println("The car you have logged matches a car in the PNC.");
                     System.out.println("The vehicle of interest is:\n");
-                    System.out.println(String.join(", ", PNC.get(i)));
+                    System.out.println(String.join(", ", readFile.get(i)));
                 }
             }
             /*
