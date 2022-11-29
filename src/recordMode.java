@@ -2,7 +2,7 @@
 import java.util.*;
 import java.io.*;
 
-class Camera {
+class recordMode {
     // UTILITIES
     String hashes = "------------------------------";
     final int count = 0;
@@ -29,7 +29,7 @@ class Camera {
                 displayStartMenu();
                 break;
             case 2:
-                viewCar(carsInMemory);
+                viewCars(carsInMemory);
                 displayStartMenu();
                 break;
             case 3:
@@ -70,7 +70,7 @@ class Camera {
         }
         return carsInMemory;
     }
-    void viewCar(ArrayList<ArrayList<String>> arrlist) {
+    void viewCars(ArrayList<ArrayList<String>> arrlist) {
         /* Method that uses a lambda expression to return and print a new String from
         each inner list of a multidimensional ArrayList */
         arrlist.forEach((c)->{System.out.println(String.join(", ",c));});
@@ -79,10 +79,10 @@ class Camera {
         /*
         Method that takes the user-inputted VRN,
         checks the VRN against the VRNs in the PNC file,
-        gives warning to user if match is found,
-        logs match to daily log file
+        gives warning to user if match is found
         */
         try {
+            // maybe worth creating a seperate function for reading the file since I will need it for admin functions too??
             File PNCFile = new File("vehicles_of_interest.csv");
             ArrayList<ArrayList<String>> PNC = new ArrayList<ArrayList<String>>();
             Scanner scannedPNCFile = new Scanner(PNCFile);
@@ -102,9 +102,8 @@ class Camera {
                 }
             }
             /*
-            TODO: problem:: if i send this matched info
-            to log file now, it could be incorrect if user
-            then edits a VRN in memory
+            TODO:
+            Add functionality of adding matches to daily_shift_log... so only trigger method at end of shift?
              */
         } catch (Exception e) {
             System.out.println("\nA file error has occurred. Please see error message:\n");
@@ -126,8 +125,8 @@ class Camera {
         j=j-1;
         arrlist.remove(j);
         System.out.println(hashes);
-        System.out.println("Car successfully removed. Updated car log:\n");
-        viewCar(arrlist);
+        System.out.println("Car successfully removed. Updated list:\n");
+        viewCars(arrlist);
     }
     ArrayList<ArrayList<String>> amendCar(ArrayList<ArrayList<String>> carsInMemory) {
         /*
@@ -160,7 +159,7 @@ class Camera {
         carsInMemory.get(j).set(2, time);
         System.out.println(hashes);
         System.out.println("Edit successfully saved. Updated car log:\n");
-        viewCar(carsInMemory);
+        viewCars(carsInMemory);
         return carsInMemory;
     }
     void saveCarsToLogFile(ArrayList<ArrayList<String>> carsInMemory) {
