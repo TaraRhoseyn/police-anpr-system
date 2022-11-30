@@ -53,6 +53,7 @@ public class Vehicle {
         // TODO: check format is same as in assignment
         /*
          * https://howtodoinjava.com/java/date-time/localdate-format-example/
+         * https://www.tutorialspoint.com/java/java_date_time.htm
          */
         LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter
