@@ -35,11 +35,11 @@ public class Vehicle {
         this.information = information;
     }
     public String setVRN(String str) {
-        /* Removes any whitespaces, and only sets the variable
-        to the class attribute if it's not empty and between 3-12 characters.
-        */
+        /* Removes any whitespaces, converts to uppercase, and only sets the variable
+        to the class attribute if it's not empty and between 3-12 characters. */
         String message = "";
         str.replaceAll(" ", "");
+        str.toUpperCase();
         message = (str.isEmpty()) ? "Please submit a Vehicle Registration Number." : "";
         if ((str.length() >= 12) || (str.length() <= 3)) {
             message = "The submitted Vehicle Registration Number must be between 3 and 12 characters long.";
