@@ -3,7 +3,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.LocalTime;
 
 public class Vehicle {
     public String VRN;
@@ -15,19 +14,13 @@ public class Vehicle {
     public String colour;
     public String information;
     public Vehicle(String VRN) {
-        /*
-        Constructor class for vehicle information
-        as read by camera
-        */
+        // Constructor class for vehicle information as read by camera
         this.VRN = setVRN(VRN);
         this.date = setDate();
         this.time = setTime();
     }
-    public void Vehicle(String VRN, String make, String model, int yearOfManufacture, String colour, String information) {
-        /*
-        Constructor class for vehicle information
-        in PNC file
-        */
+    public Vehicle(String VRN, String make, String model, int yearOfManufacture, String colour, String information) {
+        // Constructor class for vehicle information in PNC file
         this.VRN = setVRN(VRN);
         this.make = make;
         this.model = model;
@@ -38,7 +31,6 @@ public class Vehicle {
     public String setVRN(String str) {
         /* Removes any whitespaces, converts to uppercase, and only sets the variable
         to the class attribute if it's not empty and between 3-12 characters. */
-        // TODO: logic is working OK, but need to address error messages to user??
         str.replaceAll(" ", "");
         str.toUpperCase();
         Record record = new Record();
@@ -52,21 +44,17 @@ public class Vehicle {
             System.out.println("Vehicle Registration Number successfully logged.");
             return str;
         }
-        // making me do a return statement even if above test cases fail?? how to get around??
         return str;
     }
     public String setDate() {
-        // TODO: check format is same as in assignment
-        /*
-         * https://howtodoinjava.com/java/date-time/localdate-format-example/
-         * https://www.tutorialspoint.com/java/java_date_time.htm
-         */
+        // Sets the date attribute to today's date using the java.time package 
         LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter
             .ofLocalizedDate(FormatStyle.SHORT));
         return formattedDate;
     }
     public String setTime() {
+        // Sets the time attribute to the current system time using the java.time package 
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String time = dateFormat.format(System.currentTimeMillis());
         return time;

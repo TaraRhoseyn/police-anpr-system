@@ -16,9 +16,9 @@ class Record {
         System.out.println("\nPlease select an option:"+
             "\n 1 - Add a vehicle"+ // logic done
             "\n 2 - View all vehicles"+ // logic done
-            "\n 3 - Amend a vehicle"+ // logic done
+            "\n 3 - Amend a vehicle"+ // logic done but needs fixes
             "\n 4 - Remove a vehicle"+ // logic done
-            "\n 5 - End shift (save to log file)"+ 
+            "\n 5 - End shift (save to log file)"+ // logic done
             "\n 6 - (Admin) View PNC file"+ // logic done
             "\n 7 - (Admin) Amend a vehicle in PNC file"+ 
             "\n 8 - (Admin) Remove a vehicle in PNC file"+
