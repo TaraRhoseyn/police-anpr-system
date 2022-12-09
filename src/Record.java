@@ -43,7 +43,7 @@ class Record {
                 displayStartMenu();
                 break;
             case 5:
-                saveVehiclesToLogFile(vehiclesArrlist);
+                saveCarsToLogFile(vehiclesArrlist);
                 displayStartMenu();
                 break;
             case 6:
@@ -79,7 +79,7 @@ class Record {
                 }
                 break;
             case 2:
-                saveVehiclesToLogFile(vehiclesArrlist);
+                saveCarsToLogFile(vehiclesArrlist);
                 break;
         }
         return vehiclesArrlist;
@@ -168,7 +168,7 @@ class Record {
         viewVehicles(vehiclesArrlist);
         return vehiclesArrlist;
     }
-    void saveVehiclesToLogFile(ArrayList<ArrayList<String>> vehiclesArrlist) {
+    void saveCarsToLogFile(ArrayList<ArrayList<String>> vehiclesArrlist) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");

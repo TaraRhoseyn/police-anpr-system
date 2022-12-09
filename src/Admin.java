@@ -27,7 +27,7 @@ public class Admin {
          which iterates over the ArrayList and prints to console */
         try {
             Record record = new Record();
-            record.viewCars(arrlist);
+            record.viewVehicles(arrlist);
             record.displayStartMenu();
         } catch(Exception e){
             System.out.println("\nA file error has occurred. Please see error message:\n");

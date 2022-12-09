@@ -39,13 +39,15 @@ public class Vehicle {
         /* Removes any whitespaces, converts to uppercase, and only sets the variable
         to the class attribute if it's not empty and between 3-12 characters. */
         // TODO: logic is working OK, but need to address error messages to user??
-        String message = "";
         str.replaceAll(" ", "");
         str.toUpperCase();
+        Record record = new Record();
         if (str.isEmpty()) {
             System.out.println("Please submit a Vehicle Registration Number.");
+            record.addVehicle();
         } else if ((str.length() >= 12) || (str.length() <= 3)) {
             System.out.println("The submitted Vehicle Registration Number must be between 3 and 12 characters long.");
+            record.addVehicle();
         } else {
             System.out.println("Vehicle Registration Number successfully logged.");
             return str;
