@@ -58,12 +58,12 @@ class Record {
     ArrayList<ArrayList<String>> addCar() {
         // user input of car details
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Add new car VRN to daily log:");
-        String VRN = scanner.nextLine();
-        System.out.println("Add today's date:");
-        String date = scanner.nextLine();
-        System.out.println("Add the time:");
-        String time = scanner.nextLine();
+        System.out.println("Please enter a Vehicle Registration Number:");
+        String VRNinput = scanner.nextLine();
+        Vehicle vehicle = new Vehicle(VRNinput);
+        String VRN = vehicle.getVRN();
+        String date = vehicle.getDate();
+        String time = vehicle.getTime();
         // checks VRN against PNC:
         checkVRNwithPNC(VRN);
         carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));

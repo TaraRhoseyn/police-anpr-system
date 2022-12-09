@@ -1,7 +1,9 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-
+import java.time.LocalTime;
 
 public class Vehicle {
     public String VRN;
@@ -12,15 +14,14 @@ public class Vehicle {
     public int yearOfManufacture;
     public String colour;
     public String information;
-    // constructor class:
-    public Vehicle(String VRN, String date, String time) {
+    public Vehicle(String VRN) {
         /*
         Constructor class for vehicle information
         as read by camera
         */
         this.VRN = setVRN(VRN);
         this.date = setDate();
-        this.time = time;
+        this.time = setTime();
     }
     public void Vehicle(String VRN, String make, String model, int yearOfManufacture, String colour, String information) {
         /*
@@ -37,6 +38,7 @@ public class Vehicle {
     public String setVRN(String str) {
         /* Removes any whitespaces, converts to uppercase, and only sets the variable
         to the class attribute if it's not empty and between 3-12 characters. */
+        // TODO: logic is working OK, but need to address error messages to user??
         String message = "";
         str.replaceAll(" ", "");
         str.toUpperCase();
@@ -44,10 +46,10 @@ public class Vehicle {
         if ((str.length() >= 12) || (str.length() <= 3)) {
             message = "The submitted Vehicle Registration Number must be between 3 and 12 characters long.";
         } else {
-            this.VRN = str;
             message = "Vehicle Registration Number successfully logged.";
+            return str;
         }
-        return message;
+        return str;
     }
     public String setDate() {
         // TODO: check format is same as in assignment
@@ -60,8 +62,10 @@ public class Vehicle {
             .ofLocalizedDate(FormatStyle.SHORT));
         return formattedDate;
     }
-    public void setTime(String str) {
-        time = str;
+    public String setTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String time = dateFormat.format(System.currentTimeMillis());
+        return time;
     }
     public void setMake(String str) {
         make = str;
