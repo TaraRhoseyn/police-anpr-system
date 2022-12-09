@@ -7,7 +7,7 @@ class Record {
     String hashes = "------------------------------";
     final int count = 0;
     // class attributes
-    ArrayList<ArrayList<String>> carsInMemory = new ArrayList<ArrayList<String>>();
+    ArrayList<ArrayList<String>> vehiclesArrlist = new ArrayList<ArrayList<String>>();
     // start menu:
     void displayStartMenu() throws FileNotFoundException {
         Scanner scan = new Scanner(System.in);
@@ -27,23 +27,23 @@ class Record {
         int selector = scan.nextInt();
         switch(selector) {
             case 1:
-                addCar();
+                addVehicle();
                 displayStartMenu();
                 break;
             case 2:
-                viewCars(carsInMemory);
+                viewVehicles(vehiclesArrlist);
                 displayStartMenu();
                 break;
             case 3:
-                amendCar(carsInMemory);
+                amendVehicle(vehiclesArrlist);
                 displayStartMenu();
                 break;
             case 4:
-                removeCar(carsInMemory);
+                removeVehicle(vehiclesArrlist);
                 displayStartMenu();
                 break;
             case 5:
-                saveCarsToLogFile(carsInMemory);
+                saveVehiclesToLogFile(vehiclesArrlist);
                 displayStartMenu();
                 break;
             case 6:
@@ -55,7 +55,7 @@ class Record {
                 displayStartMenu();
         }
     }
-    ArrayList<ArrayList<String>> addCar() {
+    ArrayList<ArrayList<String>> addVehicle() {
         // user input of car details
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a Vehicle Registration Number:");
@@ -66,7 +66,7 @@ class Record {
         String time = vehicle.getTime();
         // checks VRN against PNC:
         checkVRNwithPNC(VRN);
-        carsInMemory.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
+        vehiclesArrlist.add(new ArrayList<String>(Arrays.asList(VRN, date, time)));
         System.out.println(hashes+"\nCar added.\nPlease select an option.\n1 - Return to Menu\n2 - Exit (save to shift log)");
         int selector = scanner.nextInt();
         switch(selector){
@@ -79,12 +79,12 @@ class Record {
                 }
                 break;
             case 2:
-                saveCarsToLogFile(carsInMemory);
+                saveVehiclesToLogFile(vehiclesArrlist);
                 break;
         }
-        return carsInMemory;
+        return vehiclesArrlist;
     }
-    void viewCars(ArrayList<ArrayList<String>> arrlist) {
+    void viewVehicles(ArrayList<ArrayList<String>> arrlist) {
         /* Method that uses a lambda expression to return and print a new String from
         each inner list of a multidimensional ArrayList */
         arrlist.forEach((c)->{System.out.println(String.join(", ",c));});
@@ -116,7 +116,7 @@ class Record {
             System.out.println(e);
         }
     }
-    void removeCar(ArrayList<ArrayList<String>> arrlist) {
+    void removeVehicle(ArrayList<ArrayList<String>> arrlist) {
         System.out.println("You have chosen to remove a car entry.\n"+
         "Please chose which entry you wish to remove:");
         Iterator itr = arrlist.iterator();
@@ -132,9 +132,9 @@ class Record {
         arrlist.remove(j);
         System.out.println(hashes);
         System.out.println("Car successfully removed. Updated list:\n");
-        viewCars(arrlist);
+        viewVehicles(arrlist);
     }
-    ArrayList<ArrayList<String>> amendCar(ArrayList<ArrayList<String>> carsInMemory) {
+    ArrayList<ArrayList<String>> amendVehicle(ArrayList<ArrayList<String>> vehiclesArrlist) {
         /*
         Method that updates all elements
         of an inner list (selected by user) of multidimensional ArrayList
@@ -142,7 +142,7 @@ class Record {
         */
         System.out.println("You have chosen to edit a car entry.\n"+
         "Please chose which entry you wish to change:");
-        Iterator itr = carsInMemory.iterator();
+        Iterator itr = vehiclesArrlist.iterator();
         int i=0,j=1; // 'i' relfects true index for iterating, 'j' is for the user's benefit so the first option isn't 0
         while (itr.hasNext()) {
             System.out.println("Number "+j+": "+itr.next());
@@ -160,23 +160,23 @@ class Record {
         System.out.println("Add the time:");
         String time = scan.nextLine();
         checkVRNwithPNC(VRN);
-        carsInMemory.get(j).set(0, VRN);
-        carsInMemory.get(j).set(1, date);
-        carsInMemory.get(j).set(2, time);
+        vehiclesArrlist.get(j).set(0, VRN);
+        vehiclesArrlist.get(j).set(1, date);
+        vehiclesArrlist.get(j).set(2, time);
         System.out.println(hashes);
         System.out.println("Edit successfully saved. Updated car log:\n");
-        viewCars(carsInMemory);
-        return carsInMemory;
+        viewVehicles(vehiclesArrlist);
+        return vehiclesArrlist;
     }
-    void saveCarsToLogFile(ArrayList<ArrayList<String>> carsInMemory) {
+    void saveVehiclesToLogFile(ArrayList<ArrayList<String>> vehiclesArrlist) {
         // Creates new file of all shift activity, including VRNs logged and any matches with PNC found
         try {
             FileWriter file = new FileWriter("daily_shift_log.csv");
             file.append("---- DAILY LOG FILE ----\n");
             file.append("---- VRNs SCANNED: ----\n");
-            for(int i=0; i<carsInMemory.size(); i++) {  // iterates through row
-                for(int j=0; j<carsInMemory.get(i).size(); j++) {   // iterates through col
-                    String colValue = carsInMemory.get(i).get(j);
+            for(int i=0; i<vehiclesArrlist.size(); i++) {  // iterates through row
+                for(int j=0; j<vehiclesArrlist.get(i).size(); j++) {   // iterates through col
+                    String colValue = vehiclesArrlist.get(i).get(j);
                     String row = String.format("%s,", colValue);
                     // FIX: final comma appearing after third piece of data in row
                     file.append(row);
