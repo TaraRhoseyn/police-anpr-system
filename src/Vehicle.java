@@ -42,13 +42,15 @@ public class Vehicle {
         String message = "";
         str.replaceAll(" ", "");
         str.toUpperCase();
-        message = (str.isEmpty()) ? "Please submit a Vehicle Registration Number." : "";
-        if ((str.length() >= 12) || (str.length() <= 3)) {
-            message = "The submitted Vehicle Registration Number must be between 3 and 12 characters long.";
+        if (str.isEmpty()) {
+            System.out.println("Please submit a Vehicle Registration Number.");
+        } else if ((str.length() >= 12) || (str.length() <= 3)) {
+            System.out.println("The submitted Vehicle Registration Number must be between 3 and 12 characters long.");
         } else {
-            message = "Vehicle Registration Number successfully logged.";
+            System.out.println("Vehicle Registration Number successfully logged.");
             return str;
         }
+        // making me do a return statement even if above test cases fail?? how to get around??
         return str;
     }
     public String setDate() {
