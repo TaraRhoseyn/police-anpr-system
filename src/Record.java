@@ -20,7 +20,7 @@ class Record {
             "\n 4 - Remove a vehicle"+ // logic done
             "\n 5 - End shift (save all vehicles to a daily log file)"+ // logic done
             "\n 6 - (ADMIN) View all vehicles in the Police National Computer"+ // logic done
-            "\n 7 - (ADMIN) Amend a vehicle in the Police National Computer"+ 
+            "\n 7 - (ADMIN) Amend a vehicle in the Police National Computer"+ // logic done
             "\n 8 - (ADMIN) Remove a vehicle in PNC file"+ // logic done
             "\n 9 - (ADMIN) View daily shift log"+ // logic done
             "\n 10 - (ADMIN) Add a new vehicle to the PNC file"+ // logic done
@@ -51,6 +51,8 @@ class Record {
                 ArrayList<ArrayList<String>> readFile = admin.readCSVfile("vehicles_of_interest.csv");
                 admin.viewPNCfile(readFile);
                 displayStartMenu();
+            case 7:
+                admin.amendPNCVehicle();
             case 8:
                 admin.removePNCvehicle();
                 displayStartMenu();
