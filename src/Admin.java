@@ -4,8 +4,13 @@ import java.util.*;
 public class Admin {
     
     public ArrayList<ArrayList<String>> readPNCfile() throws FileNotFoundException {
-        /* Reads through the csv file of vehicles of interest
-        and adds them to a multidimensional ArrayList which is returned */
+        /**
+        * This method adds a new entry to a CSV file with vehicle information.
+        * It does this by first prompting the user to enter the details of the
+        * new vehicle. It then creates a new inner list with these details and
+        * adds it to a multidimensional arraylist. Finally, it writes the
+        * updated arraylist to the CSV file.
+        */
         ArrayList<ArrayList<String>> PNC = new ArrayList<ArrayList<String>>();
         try {
             File PNCFile = new File("vehicles_of_interest.csv");
@@ -23,8 +28,12 @@ public class Admin {
         return PNC;
     }
     public void viewPNCfile(ArrayList<ArrayList<String>> arrlist) throws FileNotFoundException {
-        /* Sends the ArrayList passed to another method, viewCars(),
-         which iterates over the ArrayList and prints to console */
+        /*
+        * This method takes a multidimensional arraylist as an argument and uses it to display the entries in a CSV file. 
+        * It first uses the viewVehicles method from the Record class to print the entries to the terminal. 
+        * It then calls the displayStartMenu method from the Record class to display the start menu again. 
+        * If an error occurs, it prints an error message to the terminal.
+        */
         try {
             Record record = new Record();
             record.viewVehicles(arrlist);
@@ -35,13 +44,13 @@ public class Admin {
         }
     }
     public void removePNCvehicle(){
+        /*
+        * This method removes an entry from a CSV file and updates the file with the remaining entries. 
+        * It does this by first reading the CSV file into a multidimensional arraylist using the readPNCfile method. 
+        * It then prompts the user to choose which entry they want to remove and removes it from the arraylist. 
+        * Finally, it writes the updated arraylist back to the CSV file.
+        */
         try {
-            /*
-            BUG SOMEWHERE HERE TODO 
-            CAR CORRECTLY BEING REMOVED
-            BUT NEW FILE IS ALL ONE STRING
-            RATHER THAN BROKEN UP...
-            */
             ArrayList<ArrayList<String>> arrlistPNC = readPNCfile();
             System.out.println("You have chosen to remove a car entry.\n"+
             "Please chose which entry you wish to remove:");
@@ -56,21 +65,20 @@ public class Admin {
             j = scan.nextInt();
             j=j-1;
             arrlistPNC.remove(j);
-            // write back to PNC file...
+            // deletes original CSV file if it exists
             File fileToDelete = new File("vehicles_of_interest.csv");
             if (fileToDelete.exists()){
                 fileToDelete.delete();
             }
-            FileWriter newFile = new FileWriter("vehicles_of_interest.csv");
-            for(int x=0; x<arrlistPNC.size(); x++) {  // iterates through row
-                for(int y=0; y<arrlistPNC.get(x).size(); y++) {   // iterates through col
-                    String colValue = arrlistPNC.get(x).get(y);
-                    String row = String.format("%s,", colValue);
-                    // FIX: final comma appearing after third piece of data in row
-                    newFile.append(row);
-                }
+            FileWriter writer = new FileWriter("vehicles_of_interest.csv");
+            // Iterate over the arraylist and write each inner list to the CSV file
+            for (List<String> innerList : arrlistPNC) {
+            for (String element : innerList) {
+                writer.write(element + ",");
             }
-            newFile.close();
+            writer.write("\n");
+            }
+            writer.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
