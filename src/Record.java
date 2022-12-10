@@ -21,8 +21,8 @@ class Record {
             "\n 5 - End shift (save to log file)"+ // logic done
             "\n 6 - (Admin) View PNC file"+ // logic done
             "\n 7 - (Admin) Amend a vehicle in PNC file"+ 
-            "\n 8 - (Admin) Remove a vehicle in PNC file"+ // logic done but needs fixes
-            "\n 9 - (Admin) View daily shift log"+
+            "\n 8 - (Admin) Remove a vehicle in PNC file"+ // logic done
+            "\n 9 - (Admin) View daily shift log"+ // logic done
             "\n10 - Exit application");
         int selector = scan.nextInt();
         switch(selector) {
@@ -52,6 +52,9 @@ class Record {
                 displayStartMenu();
             case 8:
                 admin.removePNCvehicle();
+                displayStartMenu();
+            case 9:
+                admin.viewDailyLogFile();
                 displayStartMenu();
         }
     }

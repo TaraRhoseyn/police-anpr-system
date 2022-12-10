@@ -43,6 +43,30 @@ public class Admin {
             System.out.println(e);
         }
     }
+    public void viewDailyLogFile(){
+        // TODO: this is the same logic as viewPNCFile - could create a generic 'readCSVfile' method?
+        ArrayList<ArrayList<String>> dailyLogArrlist = new ArrayList<ArrayList<String>>();
+        try {
+            File file = new File("daily_shift_log.csv");
+            Scanner scannedFile = new Scanner(file);
+            while(scannedFile.hasNextLine()){
+                String line = scannedFile.nextLine();
+                String[] values = line.split(",");
+                dailyLogArrlist.add(new ArrayList<String>(Arrays.asList(values)));
+            };
+            scannedFile.close();
+        } catch(Exception e){
+            System.out.println("\nA file error has occurred. Please see error message:\n");
+            System.out.println(e);
+        }
+        // Iterate over the arraylist and print the contents of each inner list
+        for (List<String> innerList : dailyLogArrlist) {
+            for (String element : innerList) {
+            System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+    }
     public void removePNCvehicle(){
         /*
         * This method removes an entry from a CSV file and updates the file with the remaining entries. 
