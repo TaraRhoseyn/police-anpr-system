@@ -46,13 +46,13 @@ public class Admin {
         }
     }
     public void viewDailyLogFile() throws FileNotFoundException{
-    /**
-    * This method reads the "daily_shift_log.csv" file using the readCSVfile method
-    * and then prints the contents of the file to the terminal. The method first
-    * creates an empty arraylist and then uses the readCSVfile method to populate
-    * the arraylist with the contents of the CSV file. The method then iterates over
-    * the arraylist and prints the contents of each inner list to the terminal.
-    */
+        /**
+        * This method reads the "daily_shift_log.csv" file using the readCSVfile method
+        * and then prints the contents of the file to the terminal. The method first
+        * creates an empty arraylist and then uses the readCSVfile method to populate
+        * the arraylist with the contents of the CSV file. The method then iterates over
+        * the arraylist and prints the contents of each inner list to the terminal.
+        */
         ArrayList<ArrayList<String>> dailyLogArrlist = new ArrayList<ArrayList<String>>();
         dailyLogArrlist = readCSVfile("daily_shift_log.csv");
         // Iterate over the arraylist and print the contents of each inner list
@@ -61,6 +61,81 @@ public class Admin {
             System.out.print(element + " ");
             }
             System.out.println();
+        }
+    }
+    public void addPNCvehicle() throws FileNotFoundException{
+        /*
+        * This method adds a vehicle of interest to the vehicles_of_interest.csv file. 
+        * It prompts the user to enter the vehicle registration number, make, 
+        * model, year of manufacture, colour, and any other information about the vehicle. 
+        * It then adds this information to the vehicles_of_interest.csv file, 
+        * and prints a message to the user indicating that the car has been added. 
+        * It also prints a list of all cars in the file to the user. 
+        * If an error occurs while handling the file, the error is printed to the user. 
+        * Finally, the method returns the user to the start menu.
+        */
+        ArrayList<ArrayList<String>> PNCvehs = new ArrayList<ArrayList<String>>();
+        PNCvehs = readCSVfile("vehicles_of_interest.csv");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter a Vehicle Registration Number:");
+        String VRNinput = scanner.nextLine();
+        System.out.println("Please enter the vehicle's make:");
+        String make = scanner.nextLine();
+        System.out.println("Please enter the vehicle's model:");
+        String model = scanner.nextLine();
+        System.out.println("Please enter the vehicle's year of manufacture:");
+        int year = 0;
+        try {
+            year = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Invalid input for year. Please try again.");
+            scanner.nextLine(); // Consume the invalid input
+            return; // Exit the method
+        }
+        System.out.println("Please enter the vehicle's colour:");
+        String col = scanner.nextLine();
+        System.out.println("Please enter any information about the vehicle:");
+        String info = scanner.nextLine();
+        Vehicle veh = new Vehicle(VRNinput,make,model,year,col,info);
+        String VRN = veh.getVRN();
+        make = veh.getMake();
+        model = veh.getModel();
+        year = veh.getYear();
+        String yearStr = Integer.toString(year);
+        col = veh.getColour();
+        info = veh.getInfo();
+        PNCvehs.add(new ArrayList<String>(Arrays.asList(VRN, make, model, yearStr, col, info)));
+        System.out.println("\nCar succesfully added.");
+        for (List<String> innerList : PNCvehs) {
+            for (String element : innerList) {
+            System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+        try {
+            File fileToDelete = new File("vehicles_of_interest.csv");
+            if (fileToDelete.exists()){
+                fileToDelete.delete();
+            }
+            FileWriter writer = new FileWriter("vehicles_of_interest.csv");
+            // Iterate over the arraylist and write each inner list to the CSV file
+            for (List<String> innerList : PNCvehs) {
+            for (String element : innerList) {
+                writer.write(element + ",");
+            }
+            writer.write("\n");
+            }
+            writer.close();
+            System.out.println("New car successfully added. Returning to menu...");
+            Record rec = new Record();
+            rec.displayStartMenu();
+        } catch (FileNotFoundException e) {
+            System.out.println("A file handling error has occurred. Please see the error:");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("An error has occurred:");
+            e.printStackTrace();
         }
     }
     public void removePNCvehicle(){

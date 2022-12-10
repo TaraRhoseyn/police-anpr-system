@@ -18,12 +18,13 @@ class Record {
             "\n 2 - View all vehicles"+ // logic done
             "\n 3 - Amend a vehicle"+ // logic done
             "\n 4 - Remove a vehicle"+ // logic done
-            "\n 5 - End shift (save to log file)"+ // logic done
-            "\n 6 - (Admin) View PNC file"+ // logic done
-            "\n 7 - (Admin) Amend a vehicle in PNC file"+ 
-            "\n 8 - (Admin) Remove a vehicle in PNC file"+ // logic done
-            "\n 9 - (Admin) View daily shift log"+ // logic done
-            "\n10 - Exit application");
+            "\n 5 - End shift (save all vehicles to a daily log file)"+ // logic done
+            "\n 6 - (ADMIN) View all vehicles in the Police National Computer"+ // logic done
+            "\n 7 - (ADMIN) Amend a vehicle in the Police National Computer"+ 
+            "\n 8 - (ADMIN) Remove a vehicle in PNC file"+ // logic done
+            "\n 9 - (ADMIN) View daily shift log"+ // logic done
+            "\n 10 - (ADMIN) Add a new vehicle to the PNC file"+ // logic done
+            "\n11 - Exit application");
         int selector = scan.nextInt();
         switch(selector) {
             case 1:
@@ -56,6 +57,8 @@ class Record {
             case 9:
                 admin.viewDailyLogFile();
                 displayStartMenu();
+            case 10:
+                admin.addPNCvehicle();
         }
     }
     ArrayList<ArrayList<String>> addVehicle() {
@@ -119,6 +122,13 @@ class Record {
         }
     }
     void removeVehicle(ArrayList<ArrayList<String>> arrlist) {
+        /**
+        * This method allows the user to remove a vehicle from the given arraylist of vehicles.
+        * The method first prints the contents of the arraylist to the terminal and prompts
+        * the user to select a vehicle to remove. The user's selected vehicle is then removed
+        * from the arraylist and the updated list is printed to the terminal.
+        * @param arrlist the arraylist of vehicles to remove a vehicle from
+        */
         System.out.println("You have chosen to remove a car entry.\n"+
         "Please chose which entry you wish to remove:");
         Iterator itr = arrlist.iterator();

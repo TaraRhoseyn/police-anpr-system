@@ -21,19 +21,19 @@ public class Vehicle {
     public String colour;
     public String information;
     public Vehicle(String VRN) {
-        // Constructor class to be used by Record class
+        // Constructor to be used by Record class
         this.VRN = setVRN(VRN);
         this.date = setDate();
         this.time = setTime();
     }
     public Vehicle(String VRN, String make, String model, int yearOfManufacture, String colour, String information) {
-        // Constructor class to be used by Admin class
+        // Constructor to be used by Admin class
         this.VRN = setVRN(VRN);
-        this.make = make;
-        this.model = model;
-        this.yearOfManufacture = yearOfManufacture;
-        this.colour = colour;
-        this.information = information;
+        this.make = setMake(make);
+        this.model = setModel(model);
+        this.yearOfManufacture = setYear(yearOfManufacture);
+        this.colour = setColour(colour);
+        this.information = setInfo(information);
     }
     public String setVRN(String str) {
         /*
@@ -72,23 +72,24 @@ public class Vehicle {
         String time = dateFormat.format(System.currentTimeMillis());
         return time;
     }
-    public void setMake(String str) {
-        make = str;
+    public String setMake(String str) {
+        return make = str;
     }
-    public void setModel(String str) {
-        model = str;
+    public String setModel(String str) {
+        return model = str;
     }
-    public void setYear(int n) {
+    public int setYear(int n) {
         // Sets yearOfManufacture if year is between 1900-2023 
         if ((n >= 1900) && (n <= 2023)) {
             yearOfManufacture = n;
         }
+        return yearOfManufacture;
     }
-    public void setColour(String str) {
-        colour = str;
+    public String setColour(String str) {
+        return colour = str;
     }
-    public void setInfo(String str) {
-        information = str;
+    public String setInfo(String str) {
+        return information = str;
     }
     public String getVRN() {
         return this.VRN;
