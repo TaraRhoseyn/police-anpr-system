@@ -155,16 +155,10 @@ class Record {
         j = scan.nextInt();
         j=j-1; // Sets user selected number to true index
         scan.nextLine(); // Fixes Scanner bug between nextInt and nextLine methods
-        System.out.println("Add new car VRN to daily log:");
+        System.out.println("Add a new Vehicle Registration Number:");
         String VRN = scan.nextLine();
-        System.out.println("Add today's date:");
-        String date = scan.nextLine();
-        System.out.println("Add the time:");
-        String time = scan.nextLine();
         checkVRNwithPNC(VRN);
         vehiclesArrlist.get(j).set(0, VRN);
-        vehiclesArrlist.get(j).set(1, date);
-        vehiclesArrlist.get(j).set(2, time);
         System.out.println(hashes);
         System.out.println("Edit successfully saved. Updated car log:\n");
         viewVehicles(vehiclesArrlist);
