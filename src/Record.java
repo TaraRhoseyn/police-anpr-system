@@ -47,7 +47,7 @@ class Record {
                 displayStartMenu();
                 break;
             case 6:
-                ArrayList<ArrayList<String>> readFile = admin.readPNCfile();
+                ArrayList<ArrayList<String>> readFile = admin.readCSVfile("vehicles_of_interest.csv");
                 admin.viewPNCfile(readFile);
                 displayStartMenu();
             case 8:
@@ -99,7 +99,7 @@ class Record {
         */
         try {
             Admin admin = new Admin();
-            ArrayList<ArrayList<String>> readFile = admin.readPNCfile();
+            ArrayList<ArrayList<String>> readFile = admin.readCSVfile("vehicles_of_interest.csv");
             for(int i=0; i<readFile.size(); i++){ 
                 String VRNfromPNC = readFile.get(i).get(0);
                 if(VRNfromPNC.equalsIgnoreCase(VRN)){

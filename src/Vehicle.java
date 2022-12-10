@@ -5,6 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public class Vehicle {
+    /*
+    * The Vehicle class is used to store and manipulate information about vehicles.
+    * It has two constructors: one for vehicle information as read by a camera, and
+    * another for vehicle information in a PNC file. The class also has methods for
+    * setting and getting the VRN, date, time, make, model, year of manufacture,
+    * colour, and information attributes of a vehicle.
+    */
     public String VRN;
     public String date;
     public String time;
@@ -14,13 +21,13 @@ public class Vehicle {
     public String colour;
     public String information;
     public Vehicle(String VRN) {
-        // Constructor class for vehicle information as read by camera
+        // Constructor class to be used by Record class
         this.VRN = setVRN(VRN);
         this.date = setDate();
         this.time = setTime();
     }
     public Vehicle(String VRN, String make, String model, int yearOfManufacture, String colour, String information) {
-        // Constructor class for vehicle information in PNC file
+        // Constructor class to be used by Admin class
         this.VRN = setVRN(VRN);
         this.make = make;
         this.model = model;
@@ -29,8 +36,14 @@ public class Vehicle {
         this.information = information;
     }
     public String setVRN(String str) {
-        /* Removes any whitespaces, converts to uppercase, and only sets the variable
-        to the class attribute if it's not empty and between 3-12 characters. */
+        /*
+         * This method is used to set the VRN (vehicle registration number) attribute of a Vehicle object. 
+         * It takes a string as an argument and removes any whitespace, converts it to uppercase, 
+         * and checks that it is not empty and is between 3-12 characters long. If the VRN meets these criteria, 
+         * it sets the VRN attribute of the Vehicle object to the provided string and returns it. Otherwise, 
+         * it prints an error message to the terminal and calls the addVehicle method from the Record class 
+         * to prompt the user to enter a valid VRN.
+         */
         str.replaceAll(" ", "");
         str.toUpperCase();
         Record record = new Record();
