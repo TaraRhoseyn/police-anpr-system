@@ -137,10 +137,17 @@ class Record {
         viewVehicles(arrlist);
     }
     ArrayList<ArrayList<String>> amendVehicle(ArrayList<ArrayList<String>> vehiclesArrlist) {
-        /*
-        Method that updates all elements
-        of an inner list (selected by user) of multidimensional ArrayList
-        that stores the car information captured by camera
+        /**
+         * This method allows the user to edit a vehicle entry in the given vehicles arraylist.
+         * The method first prints the contents of the arraylist to the terminal and prompts
+         * the user to select a vehicle to edit. The user's selected vehicle is then removed
+         * from the arraylist and a new vehicle is added to the arraylist with the updated
+         * information entered by the user. The method also gives the option to reset the
+         * date and time of the vehicle to the current date and time. The method returns
+         * the updated arraylist.
+         *
+         * @param vehiclesArrlist the arraylist of vehicles to be edited
+         * @return the updated arraylist of vehicles
         */
         System.out.println("You have chosen to edit a car entry.\n"+
         "Please chose which entry you wish to change:");
@@ -160,7 +167,16 @@ class Record {
         checkVRNwithPNC(VRN);
         vehiclesArrlist.get(j).set(0, VRN);
         System.out.println(hashes);
-        System.out.println("Edit successfully saved. Updated car log:\n");
+        System.out.println("Vehicle Registration Number successfully changed. Do you wish to reset the date and time of the vehicle to now?\n1 -- YES\n2 -- NO");
+        int selectNum = scan.nextInt();
+        if (selectNum == 1) {
+            Vehicle veh = new Vehicle(VRN);
+            String date = veh.setDate();
+            String time = veh.setTime();
+            vehiclesArrlist.get(j).set(1, date);
+            vehiclesArrlist.get(j).set(2, time);
+        }
+        System.out.println("Changes successfully made. Updated car log:");
         viewVehicles(vehiclesArrlist);
         return vehiclesArrlist;
     }
